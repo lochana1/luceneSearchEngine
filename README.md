@@ -28,11 +28,17 @@ I have used 3 different scoring models:
 
 Observations using MAP and Recall Precision
 Analyzer	Similarity	MAP	Recall Precision
+
 Custom	TFIDF	0.3873	0.3854
+
 Custom	BM25	0.3885	0.3855
+
 English	BM25	0.3885	0.3855
+
 Standard	BM25	0.3885	0.3855
+
 English	LMDirichlet	0.2975	0.3048
+
 English	TFIDF	0.3816	0.3788
 
 
