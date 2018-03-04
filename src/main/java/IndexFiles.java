@@ -20,32 +20,26 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Date;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.LongPoint;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
+import org.apache.lucene.queries.function.valuesource.TFValueSource;
 import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.index.Term;
 import org.apache.lucene.search.similarities.BM25Similarity;
 import org.apache.lucene.search.similarities.ClassicSimilarity;
 import org.apache.lucene.search.similarities.DFRSimilarity;
+import org.apache.lucene.search.similarities.LMDirichletSimilarity;
 import org.apache.lucene.search.similarities.TFIDFSimilarity;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
@@ -83,11 +77,13 @@ public class IndexFiles {
 		try {
 
 			Directory dir = FSDirectory.open(Paths.get(indexPath));
-			// Analyzer analyzer = new StandardAnalyzer();
+//			Analyzer analyzer = new StandardAnalyzer();
 			Analyzer analyzer = new EnglishAnalyzer();
-			// Analyzer analyzer = new CustomAnalyzer();
+//			Analyzer analyzer = new CustomAnalyzer();
 			IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
-			iwc.setSimilarity(new BM25Similarity());
+//			iwc.setSimilarity(new BM25Similarity());
+//			iwc.setSimilarity(new LMDirichletSimilarity());
+			iwc.setSimilarity(new ClassicSimilarity());
 			
 			if (create) {
 				// Create a new index in the directory, removing any

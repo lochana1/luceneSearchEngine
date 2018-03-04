@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
+import java.util.Vector;
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -18,6 +20,8 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.similarities.BM25Similarity;
+import org.apache.lucene.search.similarities.ClassicSimilarity;
+import org.apache.lucene.search.similarities.LMDirichletSimilarity;
 import org.apache.lucene.search.similarities.TFIDFSimilarity;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.BytesRef;
@@ -34,41 +38,11 @@ public class Search {
 
 		IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(indexPath)));
 		IndexSearcher searcher = new IndexSearcher(reader);
-		searcher.setSimilarity(new BM25Similarity());
-//		searcher.setSimilarity(new ClassicSimilarity());
-//		searcher.setSimilarity(new TFIDFSimilarity() {
-//			
-//			@Override
-//			public float tf(float arg0) {
-//				// TODO Auto-generated method stub
-//				return 0;
-//			}
-//			
-//			@Override
-//			public float sloppyFreq(int arg0) {
-//				// TODO Auto-generated method stub
-//				return 0;
-//			}
-//			
-//			@Override
-//			public float scorePayload(int arg0, int arg1, int arg2, BytesRef arg3) {
-//				// TODO Auto-generated method stub
-//				return 0;
-//			}
-//			
-//			@Override
-//			public float lengthNorm(int arg0) {
-//				// TODO Auto-generated method stub
-//				return 0;
-//			}
-//			
-//			@Override
-//			public float idf(long arg0, long arg1) {
-//				// TODO Auto-generated method stub
-//				return 0;
-//			}
-//		});
-
+//		searcher.setSimilarity(new BM25Similarity());
+//		searcher.setSimilarity(new LMDirichletSimilarity());
+//		searcher.getDefaultSimilarity();
+		searcher.setSimilarity(new ClassicSimilarity());
+//		
 //		Analyzer analyzer = new StandardAnalyzer();
 		Analyzer analyzer = new EnglishAnalyzer();
 //		Analyzer analyzer = new CustomAnalyzer();
