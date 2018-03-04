@@ -1,3 +1,3 @@
-# Information Retrieval Project
-This project is just to get familiar with Lucene framework
+Lucene Search
+Project to search cranfield documents using Lucene Search
 
